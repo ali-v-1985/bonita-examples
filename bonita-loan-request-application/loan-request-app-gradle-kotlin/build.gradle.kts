@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    val bonitaEngineVersion = "7.9.0"
+    val bonitaEngineVersion = "7.11.0-SNAPSHOT"
 
     // adding dependency on bonita-engine-spring-boot-starter automatically provides
     // and starts a Bonita Engine when used in a Spring Boot application:
@@ -31,7 +31,7 @@ dependencies {
     implementation("org.awaitility:awaitility:2.0.0")
 
     // Libs to expose Rest API through an embedded application server:
-    implementation("org.springframework.boot:spring-boot-starter-web:2.1.6.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.2.2.RELEASE")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8")
 
     // Libs to code in Kotlin:
@@ -54,4 +54,10 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
     kotlinOptions.freeCompilerArgs = listOf("-Xjsr305=strict")
+}
+
+task<DependencyReportTask>("listDependencies") {
+    setGroup("Documentation")
+    setDescription("List runtime dependencies")
+    configurations = setOf(project.configurations.runtimeClasspath.get())
 }
